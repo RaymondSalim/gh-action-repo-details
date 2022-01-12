@@ -1,0 +1,16 @@
+name: 'Pull Request Information'
+description: 'Get pull request information on issue_comment'
+inputs:
+  github-api-token:
+    description: 'GitHub API Token'
+    required: true
+  issue-url:
+    description: 'URL of the Issue'
+    required: true
+outputs:
+  pull-request:
+    description: 'The Pull Request Object'
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
