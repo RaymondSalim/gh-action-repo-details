@@ -1,5 +1,6 @@
 name: 'Pull Request Information'
 description: 'Get pull request information on issue_comment'
+
 inputs:
   github-api-token:
     description: 'GitHub API Token'
@@ -7,9 +8,30 @@ inputs:
   issue-url:
     description: 'URL of the Issue'
     required: true
+
 outputs:
-  pull-request:
-    description: 'The Pull Request Object'
+  baseRef:
+    description: 'The Base ref of the PR'
+  headRef:
+    description: 'The Head Ref of the PR'
+  body:
+    description: 'The body of the PR'
+  url:
+    description: 'The url of the PR'
+  number:
+    description: 'The number of the PR'
+  status:
+    description: 'The status of the PR'
+  title:
+    description: 'The title of the PR'
+  closed_at:
+    description: 'The closed_at of the PR'
+  created_at:
+    description: 'The created_at of the PR'
+  merged_at:
+    description: 'The merged_at of the PR'
+  updated_at:
+    description: 'The updated_at of the PR'
 
 runs:
   using: 'node16'

@@ -16,8 +16,8 @@ async function run() {
         let issue = gh.parseIssueURL(issueURL);
         let pr = await gh.getPullRequest(issue);
         let parsedPr = parseOctokitResponse(pr);
-        let stringified = JSON.stringify(parsedPr);
-        ghcore.setOutput('pull-request', JSON.stringify(stringified)); // Double stringify() to escape json string
+
+        setOutput(parsedPr)
 
     } catch (error) {
         if (error instanceof Error) {
@@ -46,6 +46,20 @@ function parseOctokitResponse(pr: OctokitResponse<any>): PullRequest{
         merged_at: pr.data.merged_at,
         updated_at: pr.data.updated_at
     }
+}
+
+function setOutput(pr: PullRequest) {
+    ghcore.setOutput("baseRef", pr.baseRef.ref);
+    ghcore.setOutput("headRef", pr.headRef.ref);
+    ghcore.setOutput("body", pr.body);
+    ghcore.setOutput("url", pr.url);
+    ghcore.setOutput("number", pr.number);
+    ghcore.setOutput("status", pr.status);
+    ghcore.setOutput("title", pr.title);
+    ghcore.setOutput("closed_at", pr.closed_at);
+    ghcore.setOutput("created_at", pr.created_at);
+    ghcore.setOutput("merged_at", pr.merged_at);
+    ghcore.setOutput("updated_at", pr.updated_at);
 }
 
 run();
