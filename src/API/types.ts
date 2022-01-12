@@ -4,8 +4,8 @@ import { components } from "@octokit/openapi-types"
 export type PullRequestResponse = Endpoints["GET /repos/{owner}/{repo}/pulls/{pull_number}"]["response"];
 
 export type PullRequest = {
-    headRef: Repository
-    baseRef: Repository
+    headRef: Ref
+    baseRef: Ref
     url: string
     number: number
     status: string
@@ -17,4 +17,4 @@ export type PullRequest = {
     merged_at: string | null
 }
 
-export type Repository = components["schemas"]["pull-request-minimal"]
+export type Ref = components["schemas"]["pull-request-minimal"]["head"]

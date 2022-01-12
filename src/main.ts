@@ -1,7 +1,7 @@
 import * as ghcore from'@actions/core';
 import {Github} from "./API/github";
 import {OctokitResponse} from "@octokit/types";
-import {PullRequest, Repository} from "./API/types";
+import {PullRequest, Ref} from "./API/types";
 
 async function run() {
     try {
@@ -16,7 +16,8 @@ async function run() {
         let issue = gh.parseIssueURL(issueURL);
         let pr = await gh.getPullRequest(issue);
         let parsedPr = parseOctokitResponse(pr);
-        ghcore.setOutput('pull-request', parsedPr);
+        let stringified = JSON.stringify(parsedPr);
+        ghcore.setOutput('pull-request', JSON.stringify(stringified)); // Double stringify() to escape json string
 
     } catch (error) {
         if (error instanceof Error) {
@@ -30,8 +31,8 @@ async function run() {
 }
 
 function parseOctokitResponse(pr: OctokitResponse<any>): PullRequest{
-    let base = pr.data.base as unknown as Repository;
-    let head = pr.data.head as unknown as Repository;
+    let base = pr.data.base as unknown as Ref;
+    let head = pr.data.head as unknown as Ref;
     return {
         baseRef: base,
         headRef: head,
